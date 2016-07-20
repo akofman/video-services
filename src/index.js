@@ -6,6 +6,7 @@
 */
 
 import _extractMetadata from './extractMetadata';
+import _extractThumbnail from './extractThumbnail';
 
 /**
 * Extracts metadata from a video source.
@@ -154,7 +155,7 @@ import _extractMetadata from './extractMetadata';
 *</code></pre>
 *
 * @example
-* extractMetadata('source.mp4').then((metadata) => {
+* extractMetadata('/path/to/source.mp4').then((metadata) => {
 *   console.log(metadata);
 * }).catch((err) => {
 *   throw new Error(err);
@@ -163,3 +164,23 @@ import _extractMetadata from './extractMetadata';
 * @returns {promise} Once resolved, it gives access to the metadata object.
 */
 export const extractMetadata = (source) => _extractMetadata(source);
+
+/**
+* Extracts a thumbnail from a video source.
+*
+* @example
+* extractThumbnail('/path/to/source.mp4', {
+*   time: '40.2',
+*   width: '50',
+*   destPath: 'path/to/save/thumbnail.jpg',
+* }).then(() => {
+*   console.log('Thumbnail saved !');
+* })
+* @param {string} source - The source (url or local path) of the video.
+* @param {object} options - * time * : Video time where the thumbnail will be extrated.</br></br>
+*                           * width * : Thumbnail width, the height will be calculated according to the aspect ratio of the input image.</br></br>
+*                           * destPath * : If the `destPath` option exists then the resulting thumbnail will be saved on
+*                                     the filesystem else it will be returned as an array of bytes.
+* @returns {promise} Once resolved, depending on the destPath option, it gives access to the thumbnail as an array of bytes.
+*/
+export const extractThumbnail = (source, options) => _extractThumbnail(source, options);

@@ -4,6 +4,11 @@
 This module provides convenient services to extract info from a video.
 </br>Behind the scenes it mainly uses ffmpeg.
 
+
+* [video-services](#module_video-services)
+    * [.extractMetadata](#module_video-services.extractMetadata) ⇒ <code>promise</code>
+    * [.extractThumbnail](#module_video-services.extractThumbnail) ⇒ <code>promise</code>
+
 <a name="module_video-services.extractMetadata"></a>
 
 ### video-services.extractMetadata ⇒ <code>promise</code>
@@ -161,10 +166,33 @@ The format object and each stream object also contains metadata tags, depending 
 
 **Example**  
 ```js
-extractMetadata('source.mp4').then((metadata) => {
+extractMetadata('/path/to/source.mp4').then((metadata) => {
   console.log(metadata);
 }).catch((err) => {
   throw new Error(err);
 });
+```
+<a name="module_video-services.extractThumbnail"></a>
+
+### video-services.extractThumbnail ⇒ <code>promise</code>
+Extracts a thumbnail from a video source.
+
+**Kind**: static constant of <code>[video-services](#module_video-services)</code>  
+**Returns**: <code>promise</code> - Once resolved, depending on the destPath option, it gives access to the thumbnail as an array of bytes.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| source | <code>string</code> | The source (url or local path) of the video. |
+| options | <code>object</code> | * time * : Video time where the thumbnail will be extrated.</br></br>                           * width * : Thumbnail width, the height will be calculated according to the aspect ratio of the input image.</br></br>                           * destPath * : If the `destPath` option exists then the resulting thumbnail will be saved on                                     the filesystem else it will be returned as an array of bytes. |
+
+**Example**  
+```js
+extractThumbnail('/path/to/source.mp4', {
+  time: '40.2',
+  width: '50',
+  destPath: 'path/to/save/thumbnail.jpg',
+}).then(() => {
+  console.log('Thumbnail saved !');
+})
 ```
 

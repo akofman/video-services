@@ -23,15 +23,13 @@
     "json-loader": "^0.5.4",
     "mocha": "^2.4.5",
     "mocha-loader": "^0.7.1",
-    "webpack": "^1.13.0",
-    "webpack-dev-server": "^1.14.1"
+    "rimraf": "^2.5.3"
   },
   "scripts": {
     "build": "babel src -d lib",
     "lint": "eslint src test",
     "test": "mocha --compilers js:babel-register --recursive",
     "test:watch": "npm test -- --watch",
-    "test:browser": "webpack-dev-server --config test/webpack.config.js",
     "docs": "jsdoc2md -t jsdoc2md/README.hbs src/*.js > README.md; echo"
   },
   "dependencies": {
