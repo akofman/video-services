@@ -1,7 +1,7 @@
 {
   "name": "video-services",
   "version": "1.0.0",
-  "description": "A bundle of video services",
+  "description": "A bunch of video services over ffmpeg and imagemagick",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "docs": "jsdoc2md -t jsdoc2md/README.hbs src/*.js > README.md; echo"
   },
   "dependencies": {
-    "fluent-ffmpeg": "2.1.0"
+    "fluent-ffmpeg": "2.1.0",
+    "imagemagick-native": "^1.9.2"
   }
 }

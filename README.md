@@ -1,8 +1,8 @@
 <a name="module_video-services"></a>
 
 ## video-services
-This module provides convenient services to extract info from a video.
-</br>Behind the scenes it mainly uses ffmpeg.
+Bunch of convenient services to extract video info.
+</br>Behind the scenes it mainly uses [ffmpeg](https://ffmpeg.org/) and [imagemagick](http://www.imagemagick.org/script/index.php).
 
 
 * [video-services](#module_video-services)
@@ -178,21 +178,22 @@ extractMetadata('/path/to/source.mp4').then((metadata) => {
 Extracts a thumbnail from a video source.
 
 **Kind**: static constant of <code>[video-services](#module_video-services)</code>  
-**Returns**: <code>promise</code> - Once resolved, depending on the destPath option, it gives access to the thumbnail as an array of bytes.  
+**Returns**: <code>promise</code> - Once resolved it gives access to the thumbnail as an array of bytes.  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | source | <code>string</code> | The source (url or local path) of the video. |
-| options | <code>object</code> | * time * : Video time where the thumbnail will be extrated.</br></br>                           * width * : Thumbnail width, the height will be calculated according to the aspect ratio of the input image.</br></br>                           * destPath * : If the `destPath` option exists then the resulting thumbnail will be saved on                                     the filesystem else it will be returned as an array of bytes. |
+| options | <code>object</code> | * time * : Video time where the thumbnail will be extrated.</br></br>                           * width * : Thumbnail width, the height will be calculated according to the aspect ratio of the input image.</br></br>                           * quality * : the quality of the thumbnail from 1 to 100 (best).</br></br>                           * destPath * : If this option exists then the resulting thumbnail will be saved on the filesystem. |
 
 **Example**  
 ```js
 extractThumbnail('/path/to/source.mp4', {
   time: '40.2',
-  width: '50',
+  width: '150',
+  quality: '50',
   destPath: 'path/to/save/thumbnail.jpg',
-}).then(() => {
-  console.log('Thumbnail saved !');
+}).then((byteArray) => {
+  console.log('Thumbnail saved !', byteArray);
 })
 ```
 

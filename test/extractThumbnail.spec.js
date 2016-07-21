@@ -9,11 +9,14 @@ module.exports = () => {
       let isFileCreated;
       const options = {
         time: '40.2',
-        width: '50',
+        quality: 50,
+        width: 80,
         destPath: 'test/temp.jpg',
       };
 
-      return extractThumbnail('./test/big_buck_bunny.mp4', options).then(() => {
+      return extractThumbnail('./test/big_buck_bunny.mp4', options).then((bytesArray) => {
+        expect(bytesArray.length !== 0).toBe(true);
+
         try {
           fs.accessSync('test/temp.jpg', fs.F_OK);
           isFileCreated = true;

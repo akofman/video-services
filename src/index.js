@@ -1,6 +1,6 @@
 /**
-* This module provides convenient services to extract info from a video.
-* </br>Behind the scenes it mainly uses ffmpeg.
+* Bunch of convenient services to extract video info.
+* </br>Behind the scenes it mainly uses [ffmpeg](https://ffmpeg.org/) and [imagemagick](http://www.imagemagick.org/script/index.php).
 *
 * @module video-services
 */
@@ -171,16 +171,17 @@ export const extractMetadata = (source) => _extractMetadata(source);
 * @example
 * extractThumbnail('/path/to/source.mp4', {
 *   time: '40.2',
-*   width: '50',
+*   width: '150',
+*   quality: '50',
 *   destPath: 'path/to/save/thumbnail.jpg',
-* }).then(() => {
-*   console.log('Thumbnail saved !');
+* }).then((byteArray) => {
+*   console.log('Thumbnail saved !', byteArray);
 * })
 * @param {string} source - The source (url or local path) of the video.
 * @param {object} options - * time * : Video time where the thumbnail will be extrated.</br></br>
 *                           * width * : Thumbnail width, the height will be calculated according to the aspect ratio of the input image.</br></br>
-*                           * destPath * : If the `destPath` option exists then the resulting thumbnail will be saved on
-*                                     the filesystem else it will be returned as an array of bytes.
-* @returns {promise} Once resolved, depending on the destPath option, it gives access to the thumbnail as an array of bytes.
+*                           * quality * : the quality of the thumbnail from 1 to 100 (best).</br></br>
+*                           * destPath * : If this option exists then the resulting thumbnail will be saved on the filesystem.
+* @returns {promise} Once resolved it gives access to the thumbnail as an array of bytes.
 */
 export const extractThumbnail = (source, options) => _extractThumbnail(source, options);
