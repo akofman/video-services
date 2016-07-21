@@ -1,11 +1,13 @@
 /**
-* Bunch of convenient services to extract video info.
+* A bunch of convenient services to extract video info.
 * </br>Behind the scenes it mainly uses [ffmpeg](https://ffmpeg.org/) and [imagemagick](http://www.imagemagick.org/script/index.php).
 *
 * @module video-services
 */
 
-import _extractMetadata from './extractMetadata';
+import _getMetadata from './getMetadata';
+import _getDuration from './getDuration';
+import _getFPS from './getFPS';
 import _extractThumbnail from './extractThumbnail';
 
 /**
@@ -155,7 +157,7 @@ import _extractThumbnail from './extractThumbnail';
 *</code></pre>
 *
 * @example
-* extractMetadata('/path/to/source.mp4').then((metadata) => {
+* getMetadata('/path/to/source.mp4').then((metadata) => {
 *   console.log(metadata);
 * }).catch((err) => {
 *   throw new Error(err);
@@ -163,7 +165,31 @@ import _extractThumbnail from './extractThumbnail';
 * @param {string} source - The source (url or local path) of the video.
 * @returns {promise} Once resolved, it gives access to the metadata object.
 */
-export const extractMetadata = (source) => _extractMetadata(source);
+export const getMetadata = (source) => _getMetadata(source);
+
+/**
+* Returns the duration metadata.
+*
+* @example
+* getDuration('/path/to/source.mp4'}).then((duration) => {
+*   console.log('Video duration:', duration);
+* })
+* @param {string} source - The source (url or local path) of the video.
+* @returns {promise} Once resolved it gives access to the video duration.
+*/
+export const getDuration = (source) => _getDuration(source);
+
+/**
+* Returns the avg frame rate metadata.
+*
+* @example
+* getFPS('/path/to/source.mp4'}).then((fps) => {
+*   console.log('Video FPS:', fps);
+* })
+* @param {string} source - The source (url or local path) of the video.
+* @returns {promise} Once resolved it gives access to the video avg frame rate.
+*/
+export const getFPS = (source) => _getFPS(source);
 
 /**
 * Extracts a thumbnail from a video source.
@@ -178,10 +204,10 @@ export const extractMetadata = (source) => _extractMetadata(source);
 *   console.log('Thumbnail saved !', byteArray);
 * })
 * @param {string} source - The source (url or local path) of the video.
-* @param {object} options - * time * : Video time where the thumbnail will be extrated.</br></br>
-*                           * width * : Thumbnail width, the height will be calculated according to the aspect ratio of the input image.</br></br>
-*                           * quality * : the quality of the thumbnail from 1 to 100 (best).</br></br>
-*                           * destPath * : If this option exists then the resulting thumbnail will be saved on the filesystem.
+* @param {object} options - *time* : Video time where the thumbnail will be extrated.</br></br>
+*                           *width* : Thumbnail width, the height will be calculated according to the aspect ratio of the input image.</br></br>
+*                           *quality* : the quality of the thumbnail from 1 to 100 (best).</br></br>
+*                           *destPath* : If this option exists then the resulting thumbnail will be saved on the filesystem.
 * @returns {promise} Once resolved it gives access to the thumbnail as an array of bytes.
 */
 export const extractThumbnail = (source, options) => _extractThumbnail(source, options);

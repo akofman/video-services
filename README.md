@@ -1,17 +1,19 @@
 <a name="module_video-services"></a>
 
 ## video-services
-Bunch of convenient services to extract video info.
+A bunch of convenient services to extract video info.
 </br>Behind the scenes it mainly uses [ffmpeg](https://ffmpeg.org/) and [imagemagick](http://www.imagemagick.org/script/index.php).
 
 
 * [video-services](#module_video-services)
-    * [.extractMetadata](#module_video-services.extractMetadata) ⇒ <code>promise</code>
+    * [.getMetadata](#module_video-services.getMetadata) ⇒ <code>promise</code>
+    * [.getDuration](#module_video-services.getDuration) ⇒ <code>promise</code>
+    * [.getFPS](#module_video-services.getFPS) ⇒ <code>promise</code>
     * [.extractThumbnail](#module_video-services.extractThumbnail) ⇒ <code>promise</code>
 
-<a name="module_video-services.extractMetadata"></a>
+<a name="module_video-services.getMetadata"></a>
 
-### video-services.extractMetadata ⇒ <code>promise</code>
+### video-services.getMetadata ⇒ <code>promise</code>
 Extracts metadata from a video source.
 
 It wraps the `fluent-ffmpeg` <a href="https://github.com/fluent-ffmpeg/node-fluent-ffmpeg/blob/master/README.md#reading-video-metadata">ffprobe method</a>
@@ -166,11 +168,47 @@ The format object and each stream object also contains metadata tags, depending 
 
 **Example**  
 ```js
-extractMetadata('/path/to/source.mp4').then((metadata) => {
+getMetadata('/path/to/source.mp4').then((metadata) => {
   console.log(metadata);
 }).catch((err) => {
   throw new Error(err);
 });
+```
+<a name="module_video-services.getDuration"></a>
+
+### video-services.getDuration ⇒ <code>promise</code>
+Returns the duration metadata.
+
+**Kind**: static constant of <code>[video-services](#module_video-services)</code>  
+**Returns**: <code>promise</code> - Once resolved it gives access to the video duration.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| source | <code>string</code> | The source (url or local path) of the video. |
+
+**Example**  
+```js
+getDuration('/path/to/source.mp4'}).then((duration) => {
+  console.log('Video duration:', duration);
+})
+```
+<a name="module_video-services.getFPS"></a>
+
+### video-services.getFPS ⇒ <code>promise</code>
+Returns the avg frame rate metadata.
+
+**Kind**: static constant of <code>[video-services](#module_video-services)</code>  
+**Returns**: <code>promise</code> - Once resolved it gives access to the video avg frame rate.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| source | <code>string</code> | The source (url or local path) of the video. |
+
+**Example**  
+```js
+getFPS('/path/to/source.mp4'}).then((fps) => {
+  console.log('Video FPS:', fps);
+})
 ```
 <a name="module_video-services.extractThumbnail"></a>
 
@@ -183,7 +221,7 @@ Extracts a thumbnail from a video source.
 | Param | Type | Description |
 | --- | --- | --- |
 | source | <code>string</code> | The source (url or local path) of the video. |
-| options | <code>object</code> | * time * : Video time where the thumbnail will be extrated.</br></br>                           * width * : Thumbnail width, the height will be calculated according to the aspect ratio of the input image.</br></br>                           * quality * : the quality of the thumbnail from 1 to 100 (best).</br></br>                           * destPath * : If this option exists then the resulting thumbnail will be saved on the filesystem. |
+| options | <code>object</code> | *time* : Video time where the thumbnail will be extrated.</br></br>                           *width* : Thumbnail width, the height will be calculated according to the aspect ratio of the input image.</br></br>                           *quality* : the quality of the thumbnail from 1 to 100 (best).</br></br>                           *destPath* : If this option exists then the resulting thumbnail will be saved on the filesystem. |
 
 **Example**  
 ```js
